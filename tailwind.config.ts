@@ -52,6 +52,24 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				agriculture: {
+					primary: 'hsl(var(--agriculture-primary))',
+					secondary: 'hsl(var(--agriculture-secondary))',
+					accent: 'hsl(var(--agriculture-accent))',
+					earth: 'hsl(var(--agriculture-earth))',
+					sky: 'hsl(var(--agriculture-sky))'
+				},
+				price: {
+					up: 'hsl(var(--price-up))',
+					down: 'hsl(var(--price-down))',
+					stable: 'hsl(var(--price-stable))'
+				},
+				chart: {
+					primary: 'hsl(var(--chart-primary))',
+					secondary: 'hsl(var(--chart-secondary))',
+					tertiary: 'hsl(var(--chart-tertiary))',
+					quaternary: 'hsl(var(--chart-quaternary))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -67,6 +85,11 @@ export default {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			backgroundImage: {
+				'gradient-agricultural': 'var(--gradient-agricultural)',
+				'gradient-earth': 'var(--gradient-earth)',
+				'gradient-sky': 'var(--gradient-sky)'
 			},
 			keyframes: {
 				'accordion-down': {
