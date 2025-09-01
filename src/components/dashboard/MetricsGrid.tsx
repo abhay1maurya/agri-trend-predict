@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TrendingUp, TrendingDown, Minus, AlertTriangle } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 
 interface MetricCardProps {
   title: string;
@@ -10,33 +10,35 @@ interface MetricCardProps {
 }
 
 const MetricCard = ({ title, value, change, unit, commodity }: MetricCardProps) => {
-  const isPositive = change > 0;
-  const isStable = Math.abs(change) < 1;
-  
-  const getTrendIcon = () => {
-    if (isStable) return <Minus className="h-4 w-4" />;
-    return isPositive ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />;
+  const getTrendIcon = (change: number) => {
+    if (change > 0) return <TrendingUp className="h-4 w-4" />;
+    if (change < 0) return <TrendingDown className="h-4 w-4" />;
+    return <Minus className="h-4 w-4" />;
   };
-  
-  const getTrendColor = () => {
-    if (isStable) return "text-price-stable";
-    return isPositive ? "text-price-up" : "text-price-down";
+
+  const getTrendColor = (change: number) => {
+    if (change > 0) return "text-green-600";
+    if (change < 0) return "text-red-600";
+    return "text-muted-foreground";
   };
 
   return (
-    <Card className="hover:shadow-md transition-shadow">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+    <Card>
+      <CardHeader className="pb-2">
         <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
-        <div className={`flex items-center space-x-1 ${getTrendColor()}`}>
-          {getTrendIcon()}
-          <span className="text-xs font-medium">{Math.abs(change)}%</span>
-        </div>
       </CardHeader>
       <CardContent>
-        <div className="space-y-1">
-          <div className="text-2xl font-bold text-foreground">₹{value}</div>
-          <div className="text-xs text-muted-foreground">{unit} • {commodity}</div>
+        <div className="flex items-baseline justify-between">
+          <div>
+            <div className="text-2xl font-bold text-foreground">{value}</div>
+            <div className="text-xs text-muted-foreground">{unit}</div>
+          </div>
+          <div className={`flex items-center space-x-1 ${getTrendColor(change)}`}>
+            {getTrendIcon(change)}
+            <span className="text-sm font-medium">{Math.abs(change)}%</span>
+          </div>
         </div>
+        <div className="text-xs text-muted-foreground mt-1">{commodity}</div>
       </CardContent>
     </Card>
   );
@@ -45,32 +47,32 @@ const MetricCard = ({ title, value, change, unit, commodity }: MetricCardProps) 
 export const MetricsGrid = () => {
   const metrics = [
     {
-      title: "Onion Avg Price",
-      value: "45.30",
-      change: 12.5,
+      title: "Average Onion Price",
+      value: "₹28.50",
+      change: 2.3,
       unit: "per kg",
-      commodity: "Maharashtra"
+      commodity: "Onion (Bangalore)"
     },
     {
-      title: "Pulses (Arhar)",
-      value: "120.85",
-      change: -3.2,
+      title: "Wheat Price Trend",
+      value: "₹22.80",
+      change: -1.2,
       unit: "per kg",
-      commodity: "Uttar Pradesh"
+      commodity: "Wheat (Delhi)"
     },
     {
-      title: "Potato Price",
-      value: "28.60",
+      title: "Rice Market",
+      value: "₹35.20",
       change: 0.8,
       unit: "per kg",
-      commodity: "West Bengal"
+      commodity: "Rice (Mumbai)"
     },
     {
-      title: "Market Volatility",
-      value: "15.2",
-      change: 8.4,
-      unit: "index",
-      commodity: "National Avg"
+      title: "Pulse Prices",
+      value: "₹68.40",
+      change: -3.5,
+      unit: "per kg",
+      commodity: "Toor Dal (Pune)"
     }
   ];
 
